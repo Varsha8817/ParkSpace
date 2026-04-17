@@ -24,35 +24,20 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="hero-panel">
-            <div className="hero-card">
-              <strong>Driver flow</strong>
-              <p>Login ? Search ? View on map ? Book ? Pay ? Navigate</p>
+          <div className="hero-panel card">
+            <div className="hero-note">
+              <strong>For drivers</strong>
+              <p>Search by area, compare prices, and complete the booking flow in minutes.</p>
             </div>
-            <div className="hero-card">
-              <strong>Host flow</strong>
-              <p>Login ? Add space ? Set pricing ? Publish ? Receive bookings</p>
+            <div className="hero-note">
+              <strong>For hosts</strong>
+              <p>Publish a driveway, garage, or covered slot and manage availability from one dashboard.</p>
             </div>
-            <div className="hero-card accent">
-              <strong>MVP ready</strong>
-              <p>Auth, listings, booking, mock UPI, reviews, and maps in one deployable project.</p>
-            </div>
+            <div className="hero-divider" />
+            <p className="hero-support">
+              Built for a straightforward MVP: authentication, listings, bookings, payments, reviews, and maps.
+            </p>
           </div>
-        </section>
-
-        <section className="feature-strip">
-          <article className="feature-card">
-            <strong>3-step booking</strong>
-            <p>Pick a slot, confirm payment, and jump straight into navigation.</p>
-          </article>
-          <article className="feature-card">
-            <strong>Flexible pricing</strong>
-            <p>Support hourly, daily, and monthly stays for commuters and residents.</p>
-          </article>
-          <article className="feature-card">
-            <strong>Trust signals</strong>
-            <p>Ratings, reviews, amenities, and space type help guests decide faster.</p>
-          </article>
         </section>
 
         <SearchMarketplace />
