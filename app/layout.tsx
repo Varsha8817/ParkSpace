@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { AppProvider } from "@/providers/app-provider";
 import "./globals.css";
@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen bg-slate-50 text-slate-900">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
 }
+

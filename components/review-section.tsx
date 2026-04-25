@@ -1,8 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { Review } from "@/lib/types";
 import { useApp } from "@/providers/app-provider";
+
+const primaryButtonClass =
+  "inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition-all hover:bg-indigo-500 active:scale-95 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none";
 
 export function ReviewSection({ parkingId, reviews }: { parkingId: string; reviews: Review[] }) {
   const { currentUser, addReview } = useApp();
@@ -26,35 +29,39 @@ export function ReviewSection({ parkingId, reviews }: { parkingId: string; revie
   }
 
   return (
-    <section className="card stack">
-      <div className="section-heading">
-        <div>
-          <h3>Ratings & reviews</h3>
-          <p>Driver feedback builds trust and helps future guests book quickly.</p>
-        </div>
+    <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm shadow-slate-200/60">
+      <div className="space-y-2">
+        <h3 className="text-2xl font-bold tracking-tight text-slate-900">Ratings and reviews</h3>
+        <p className="text-base leading-7 text-slate-500">
+          Driver feedback builds trust and helps future guests book quickly.
+        </p>
       </div>
 
-      <div className="review-list">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {parkingReviews.length ? (
           parkingReviews.map((review) => (
-            <article key={review.id} className="review-item">
-              <div className="review-header">
-                <strong>{review.userName}</strong>
-                <span>{"?".repeat(review.rating)}</span>
+            <article key={review.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="flex items-center justify-between gap-3">
+                <strong className="text-sm font-semibold text-slate-900">{review.userName}</strong>
+                <span className="text-sm font-medium text-indigo-600">{review.rating}/5</span>
               </div>
-              <p>{review.comment}</p>
+              <p className="mt-3 text-sm leading-7 text-slate-500">{review.comment}</p>
             </article>
           ))
         ) : (
-          <p className="muted">No reviews yet. Be the first to share how the parking experience went.</p>
+          <p className="text-sm text-slate-500">No reviews yet. Be the first to share how the parking experience went.</p>
         )}
       </div>
 
-      <form className="stack" onSubmit={handleSubmit}>
-        <div className="form-grid">
-          <label>
-            Rating
-            <select value={rating} onChange={(event) => setRating(Number(event.target.value))}>
+      <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[180px_minmax(0,1fr)]">
+          <label className="space-y-2 text-sm font-medium text-slate-700">
+            <span>Rating</span>
+            <select
+              className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 outline-none transition focus:border-indigo-300 focus:bg-white"
+              value={rating}
+              onChange={(event) => setRating(Number(event.target.value))}
+            >
               {[5, 4, 3, 2, 1].map((value) => (
                 <option key={value} value={value}>
                   {value} stars
@@ -62,9 +69,10 @@ export function ReviewSection({ parkingId, reviews }: { parkingId: string; revie
               ))}
             </select>
           </label>
-          <label className="wide">
-            Review
+          <label className="space-y-2 text-sm font-medium text-slate-700">
+            <span>Review</span>
             <textarea
+              className="min-h-[140px] w-full rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-indigo-300 focus:bg-white"
               placeholder={currentUser ? "Was it easy to enter, safe, and accurate?" : "Sign in to leave feedback"}
               value={comment}
               onChange={(event) => setComment(event.target.value)}
@@ -72,13 +80,14 @@ export function ReviewSection({ parkingId, reviews }: { parkingId: string; revie
             />
           </label>
         </div>
-        <div className="inline-row">
-          <button className="primary-button" disabled={!currentUser || !comment.trim()} type="submit">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <button className={primaryButtonClass} disabled={!currentUser || !comment.trim()} type="submit">
             Submit review
           </button>
-          {message ? <span className="muted">{message}</span> : null}
+          {message ? <span className="text-sm font-medium text-indigo-600">{message}</span> : null}
         </div>
       </form>
     </section>
   );
 }
+
